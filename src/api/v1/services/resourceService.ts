@@ -18,7 +18,8 @@ export const getResourceByIdAsync = async (id: string): Promise<ResourceReponse>
 
     return {
         id: entity.id,
-        applicant: entity.applicant
+        title: entity.title,
+        description: entity.description
     };
 }
 

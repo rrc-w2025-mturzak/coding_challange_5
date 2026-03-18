@@ -1,7 +1,8 @@
 export interface ResourceDTO {
-    id: string;
-    applicant: string;
-    amount: number;
-    status: string;
+    id: number;
+    title: string;
+    type: string;
+    url: string;
+    description: string;
     createdAt: Date;
 }

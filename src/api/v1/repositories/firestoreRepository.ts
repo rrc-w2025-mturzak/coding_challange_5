@@ -7,12 +7,13 @@ import { ResourceDTO } from "../models/resourceDTO";
 
 export const addResource = async (item:ResourceCreateRequest): Promise<string> => {
 
-    const docRef: DocumentReference = db.collection("resources").doc();
+    const docRef: DocumentReference = db.collection("resources").doc("1");
 
     const itemEntity: Resource = {
-        applicant: item.applicant,
-        amount: item.amount,
-        status: item.status,
+        title: item.title,
+        type: item.type,
+        url: item.url,
+        description: item.description,
         createdAt: new Date()
     }
     await docRef.set(itemEntity);
@@ -28,10 +29,11 @@ export const getResourceById = async (id: string): Promise<ResourceDTO | undefin
         let data = doc.data();
 
         return {
-            id: doc.id,
-            applicant: data!.applicant,
-            amount: data!.amount,
-            status: data!.status,
+            id: Number(doc.id),
+            title: data!.title,
+            type: data!.type,
+            url: data!.url,
+            description: data!.description,
             createdAt: data!. createdAt
         }
     } else {
@@ -47,10 +49,11 @@ export const getResources = async (): Promise<Array<ResourceDTO> | undefined> =>
     snapshot.forEach((doc) => {
         let data = doc.data();
         Resources.push({
-            id: doc.id,
-            applicant: data!.applicant,
-            amount: data!.amount,
-            status: data!.status,
+            id: Number(doc.id),
+            title: data!.title,
+            type: data!.type,
+            url: data!.url,
+            description: data!.description,
             createdAt: data!.createdAt?.toDate().toISOString()
         });
     });
@@ -63,9 +66,10 @@ export const updateResources = async (id: string , item: ResourceUpdateRequest):
     const docRef: DocumentReference = db.collection("resources").doc(id);
 
     const updateData: Partial<Resource> = {};
-    if (item.applicant !== undefined) updateData.applicant = item.applicant;
-    if (item.amount !== undefined) updateData.amount = item.amount;
-    if (item.status !== undefined) updateData.status = item.status;
+    if (item.title !== undefined) updateData.title = item.title;
+    if (item.type !== undefined) updateData.type = item.type;
+    if (item.url !== undefined) updateData.url = item.url;
+    if (item.description !== undefined) updateData.description = item.description;
 
     if (Object.keys(updateData).length === 0) {
         return;

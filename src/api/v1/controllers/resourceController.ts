@@ -17,9 +17,10 @@ export const healthData = (req: Request, res: Response) => {
 
 export const createResource = async (req: Request, res: Response) => {
     const requestResource: ResourceCreateRequest = {
-        applicant: req.body.applicant,
-        amount: req.body.amount,
-        status: req.body.status
+        title: req.body.title,
+        type: req.body.type,
+        url: req.body.url,
+        description: req.body.description
     }
     let result = await createNewResource(requestResource)
     res.status(HTTP_STATUS.CREATED).send(result)
@@ -48,9 +49,10 @@ export const getAllResource = async (req: Request, res: Response) => {
 export const updateResourceByIdAsync = async (req: Request, res: Response) => {
     let id: string = req.params.id as string; 
     const request: ResourceUpdateRequest = {
-        applicant: req.body.applicant,
-        amount: req.body.amount,
-        status: req.body.status
+        title: req.body.title,
+        type: req.body.type,
+        url: req.body.url,
+        description: req.body.description
     };
 
     await updateResourceById(id, request);

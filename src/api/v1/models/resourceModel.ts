@@ -1,6 +1,7 @@
 export interface Resource {
-    applicant: string;
-    amount: number;
-    status: string;
+    title: string;
+    type: string;
+    url: string;
+    description: string;
     createdAt: Date;
 }

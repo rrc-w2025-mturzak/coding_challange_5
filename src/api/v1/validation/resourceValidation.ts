@@ -5,17 +5,21 @@ export const postSchemas = {
     // POST /Resource - Create new post
     create: {
         body: Joi.object({
-            applicant: Joi.string().required().messages({
-                "any.required": "Resource applicant is required",
-                "string.empty": "Resource applicant cannot be empty",
+            title: Joi.string().required().messages({
+                "any.required": "Resource title is required",
+                "string.empty": "Resource title cannot be empty",
             }),
-            amount: Joi.number().required().messages({
-                "any.required": "Resource amount is required",
-                "string.empty": "Resource amount cannot be empty",
+            type: Joi.string().required().messages({
+                "any.required": "Resource type is required",
+                "string.empty": "Resource type cannot be empty",
             }),
-            status: Joi.string().required().messages({
-                "any.required": "status is required",
-                "string.empty": "status cannot be empty",
+            url: Joi.string().required().messages({
+                "any.required": "url is required",
+                "string.empty": "url cannot be empty",
+            }),
+            description: Joi.string().required().messages({
+                "any.required": "description is required",
+                "string.empty": "description cannot be empty",
             }),
         }),
     },
@@ -42,17 +46,21 @@ export const postSchemas = {
             }),
         }),
         body: Joi.object({
-            applicant: Joi.string().optional().messages({
-                "any.required": "Resource applicant is required",
-                "string.empty": "Resource applicant cannot be empty",
+            title: Joi.string().required().messages({
+                "any.required": "Resource title is required",
+                "string.empty": "Resource title cannot be empty",
             }),
-            amount: Joi.number().optional().messages({
-                "any.required": "Resource amount is required",
-                "string.empty": "Resource amount cannot be empty",
+            type: Joi.string().required().messages({
+                "any.required": "Resource type is required",
+                "string.empty": "Resource type cannot be empty",
             }),
-            status: Joi.string().optional().messages({
-                "any.required": "status is required",
-                "string.empty": "status cannot be empty",
+            url: Joi.string().required().messages({
+                "any.required": "url is required",
+                "string.empty": "url cannot be empty",
+            }),
+            description: Joi.string().required().messages({
+                "any.required": "description is required",
+                "string.empty": "description cannot be empty",
             }),
         }),
     },
