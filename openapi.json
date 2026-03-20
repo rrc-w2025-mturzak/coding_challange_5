@@ -1,0 +1,179 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Resource Management API Documentation",
+    "version": "1.0.0",
+    "description": "This is the API documentation for the Resource Management application."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Local server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Resource": {
+        "type": "object",
+        "required": [
+          "title",
+          "type",
+          "url",
+          "description",
+          "createdAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "Unique identifier for the resource",
+            "example": "52"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "description": "Full name of the resource",
+            "example": "Jest Testing Tutorial"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "description": "The type of resource",
+            "example": "tutorial"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the resource was created",
+            "example": "2024-01-15T10:30:00Z"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/resources/{resourceId}": {
+      "get": {
+        "summary": "Retrieve a list of resource with optional filtering",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Id of the resource to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "properties": {
+                  "id": "number",
+                  "title": "string",
+                  "description": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resources": {
+      "post": {
+        "summary": "Create a new user account",
+        "tags": [
+          "Resources"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "type",
+                  "url",
+                  "description"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "example": "Jest Testing Tutorial"
+                  },
+                  "type": {
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "example": "tutorial"
+                  },
+                  "url": {
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "example": "https://example.com/jest-tutorial"
+                  },
+                  "description": {
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "example": "Complete guide to testing with Jest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Resource created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#./src/api/v1/models/*.ts"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Resource with this email already exists"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
