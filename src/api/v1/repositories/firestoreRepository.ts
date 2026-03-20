@@ -7,7 +7,7 @@ import { ResourceDTO } from "../models/resourceDTO";
 
 export const addResource = async (item:ResourceCreateRequest): Promise<string> => {
 
-    const docRef: DocumentReference = db.collection("resources").doc("1");
+    const docRef: DocumentReference = db.collection("resources").doc("4");
 
     const itemEntity: Resource = {
         title: item.title,
